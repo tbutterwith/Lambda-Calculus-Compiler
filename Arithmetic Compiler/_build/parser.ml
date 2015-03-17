@@ -168,34 +168,34 @@ let yyact = [|
 # 18 "parser.mly"
            ( None )
 # 171 "parser.ml"
-               : Lamda))
+               : Lambda.expr option))
 ; (fun __caml_parser_env ->
     Obj.repr(
 # 19 "parser.mly"
            ( None )
 # 177 "parser.ml"
-               : Lamda))
+               : Lambda.expr option))
 ; (fun __caml_parser_env ->
     let _2 = (Parsing.peek_val __caml_parser_env 0 : 'expr) in
     Obj.repr(
 # 20 "parser.mly"
                ( Some _2 )
 # 184 "parser.ml"
-               : Lamda))
+               : Lambda.expr option))
 ; (fun __caml_parser_env ->
     let _1 = (Parsing.peek_val __caml_parser_env 1 : 'expr) in
     Obj.repr(
 # 21 "parser.mly"
                ( Some _1 )
 # 191 "parser.ml"
-               : Lamda))
+               : Lambda.expr option))
 ; (fun __caml_parser_env ->
     let _1 = (Parsing.peek_val __caml_parser_env 1 : 'expr) in
     Obj.repr(
 # 22 "parser.mly"
                ( Some _1 )
 # 198 "parser.ml"
-               : Lamda))
+               : Lambda.expr option))
 ; (fun __caml_parser_env ->
     let _1 = (Parsing.peek_val __caml_parser_env 0 : int) in
     Obj.repr(
@@ -263,4 +263,4 @@ let yytables =
     Parsing.names_const=yynames_const;
     Parsing.names_block=yynames_block }
 let main (lexfun : Lexing.lexbuf -> token) (lexbuf : Lexing.lexbuf) =
-   (Parsing.yyparse yytables 1 lexfun lexbuf : Lamda)
+   (Parsing.yyparse yytables 1 lexfun lexbuf : Lambda.expr option)

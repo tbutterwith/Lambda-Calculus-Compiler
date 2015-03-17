@@ -9,7 +9,7 @@
 %token <string> STRING
 %token PLUS MINUS MULT DIV OPEN CLOSE EOL EOF LAMBDA DOT
 
-%type <Lamda> main
+%type <Lambda.expr option> main
 %start main
 
 %%

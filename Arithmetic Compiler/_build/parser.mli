@@ -14,4 +14,4 @@ type token =
   | DOT
 
 val main :
-  (Lexing.lexbuf  -> token) -> Lexing.lexbuf -> Lamda
+  (Lexing.lexbuf  -> token) -> Lexing.lexbuf -> Lambda.expr option

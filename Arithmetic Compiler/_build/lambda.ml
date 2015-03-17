@@ -1,5 +1,5 @@
-type lamda = 
+type expr = 
 	| Char of char
 	| Int of int
-	| Lamda of string * lamda
+	| Lambda of string * expr
 	
