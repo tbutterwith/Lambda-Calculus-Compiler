@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<changelog xmlns="http://www.omnigroup.com/namespace/OmniPlan/v2">
+  <version>2.1</version>
+  <task-change-set user="Tom Butterwith" date="2015-01-29T21:39:45.965Z" timestamp="2015-01-29T21:39:45.965Z">
+    <change idref="t-1" attribute="criticalPathProperties" type="dict" from="{
+    color =     {
+        b = &quot;0.5&quot;;
+        g = &quot;0.5&quot;;
+        r = 1;
+    };
+    enabled = 0;
+    root = &quot;-1&quot;;
+}" to="{
+    color =     {
+        b = &quot;0.5&quot;;
+        g = &quot;0.5&quot;;
+        r = 1;
+    };
+    enabled = 1;
+    root = &quot;-1&quot;;
+}" resolved="yes"/>
+    <change idref="t2" to="t-1" to-position="1" resolved="yes">
+      <change idref="t2" attribute="effort" type="real" from="28800" to="201600"/>
+      <change idref="t2" attribute="internalPrerequisitesString" type="string" to="1SS"/>
+      <change idref="t2" attribute="title" type="string" to="Research Compiler Design"/>
+    </change>
+    <change idref="t5" to="t-1" to-position="2" resolved="yes">
+      <change idref="t5" attribute="internalPrerequisitesString" type="string" to="2FS"/>
+      <change idref="t5" attribute="title" type="string" to="Implement Lambda calculus into compiler"/>
+    </change>
+    <change idref="t4" to="t-1" to-position="3" resolved="yes">
+      <change idref="t4" attribute="internalPrerequisitesString" type="string" to="2FS"/>
+      <change idref="t4" attribute="noEarlierThanConstraintDate" type="date" to="2015-01-30T11:45:00.000Z"/>
+      <change idref="t4" attribute="title" type="string" to="Research Type Checking"/>
+    </change>
+    <change idref="t6" to="t-1" to-position="4" resolved="yes">
+      <change idref="t6" attribute="title" type="string" to="Implement type checking"/>
+    </change>
+    <change idref="t7" to="t-1" to-position="5" resolved="yes">
+      <change idref="t7" attribute="title" type="string" to="Test Arithmetics"/>
+    </change>
+    <change idref="t8" to="t-1" to-position="6" resolved="yes">
+      <change idref="t8" attribute="title" type="string" to="Test Lambda Calculus"/>
+    </change>
+    <change idref="t9" to="t-1" to-position="7" resolved="yes">
+      <change idref="t9" attribute="title" type="string" to="Test Type Checking"/>
+    </change>
+    <change idref="t10" to="t-1" to-position="8" resolved="yes">
+      <change idref="t10" attribute="title" type="string" to="Write Report First Draft"/>
+    </change>
+    <change idref="t11" to="t-1" to-position="9" resolved="yes">
+      <change idref="t11" attribute="title" type="string" to="Redraft Report"/>
+    </change>
+    <change idref="t1" attribute="title" type="string" from="Task 1" to="Reseach Lambda Calculus" resolved="yes"/>
+    <change idref="t1" attribute="effort" type="real" from="28800" to="201600" resolved="yes"/>
+  </task-change-set>
+  <task-change-set user="Tom Butterwith" date="2015-01-29T21:53:13.047Z" timestamp="2015-01-29T21:53:13.047Z">
+    <change idref="t1" attribute="effort" type="real" from="201600" to="172800" resolved="yes"/>
+    <change idref="t2" attribute="effort" type="real" from="201600" to="172800" resolved="yes"/>
+    <change idref="t4" attribute="effort" type="real" from="28800" to="720000" resolved="yes"/>
+    <change idref="t4" attribute="noEarlierThanConstraintDate" type="date" from="2015-01-30T11:45:00.000Z" to="2015-02-06T16:45:00.000Z" resolved="yes"/>
+    <change idref="t5" attribute="effort" type="real" from="28800" to="576000" resolved="yes"/>
+  </task-change-set>
+  <task-change-set user="Tom Butterwith" date="2015-01-29T22:00:27.594Z" timestamp="2015-01-29T22:00:27.594Z">
+    <change idref="t7" from="t-1" from-position="5" to="t-1" to-position="0" resolved="yes"/>
+    <change idref="t8" from="t-1" from-position="6" to="t-1" to-position="4" resolved="yes"/>
+    <change idref="t14" to="t-1" to-position="10" resolved="yes">
+      <change idref="t14" attribute="effort" type="real" from="28800" to="268200"/>
+      <change idref="t14" attribute="internalPrerequisitesString" type="string" to="11FS"/>
+      <change idref="t14" attribute="noEarlierThanConstraintDate" type="date" to="2015-04-24T13:45:00.000Z"/>
+      <change idref="t14" attribute="title" type="string" to="Create Presentation"/>
+    </change>
+    <change idref="t6" attribute="effort" type="real" from="28800" to="720000" resolved="yes"/>
+    <change idref="t6" attribute="internalPrerequisitesString" type="string" to="4FS" resolved="yes"/>
+    <change idref="t7" attribute="effort" type="real" from="28800" to="172800" resolved="yes"/>
+    <change idref="t7" attribute="noEarlierThanConstraintDate" type="date" to="2015-01-30T08:45:00.000Z" resolved="yes"/>
+    <change idref="t8" attribute="effort" type="real" from="28800" to="144000" resolved="yes"/>
+    <change idref="t8" attribute="internalPrerequisitesString" type="string" to="5FS" resolved="yes"/>
+    <change idref="t8" attribute="noEarlierThanConstraintDate" type="date" to="2015-03-09T08:45:00.000Z" resolved="yes"/>
+    <change idref="t9" attribute="effort" type="real" from="28800" to="144000" resolved="yes"/>
+    <change idref="t9" attribute="internalPrerequisitesString" type="string" to="6FS" resolved="yes"/>
+    <change idref="t9" attribute="noEarlierThanConstraintDate" type="date" to="2015-04-17T15:30:00.000Z" resolved="yes"/>
+    <change idref="t10" attribute="effort" type="real" from="28800" to="432000" resolved="yes"/>
+    <change idref="t10" attribute="noEarlierThanConstraintDate" type="date" to="2015-03-30T07:00:00.000Z" resolved="yes"/>
+    <change idref="t11" attribute="effort" type="real" from="28800" to="144000" resolved="yes"/>
+    <change idref="t11" attribute="internalPrerequisitesString" type="string" to="10FS" resolved="yes"/>
+    <change idref="t11" attribute="noEarlierThanConstraintDate" type="date" to="2015-04-17T15:15:00.000Z" resolved="yes"/>
+  </task-change-set>
+  <task-change-set user="Tom Butterwith" date="2015-01-29T22:05:57.403Z" timestamp="2015-01-29T22:05:57.403Z">
+    <change idref="t1" attribute="noEarlierThanConstraintDate" type="date" to="2015-01-30T16:15:00.000Z"/>
+    <change idref="t2" attribute="noEarlierThanConstraintDate" type="date" to="2015-01-30T16:15:00.000Z"/>
+    <change idref="t7" attribute="noEarlierThanConstraintDate" type="date" from="2015-01-30T08:45:00.000Z" to="2015-01-30T08:00:00.000Z"/>
+    <change idref="t8" attribute="noEarlierThanConstraintDate" type="date" from="2015-03-09T08:45:00.000Z" to="2015-03-09T08:00:00.000Z"/>
+    <change idref="t14" attribute="effort" type="real" from="268200" to="144000"/>
+  </task-change-set>
+  <metadata-change-set user="Tom Butterwith" date="2015-01-29T21:39:45.964Z" timestamp="2015-01-29T21:39:45.964Z">
+    <change idref="m1" attribute="fixedDate" type="date" from="2007-01-01T20:00:00.000Z" to="2015-01-29T08:00:00.000Z" resolved="yes"/>
+  </metadata-change-set>
+  <metadata-change-set user="Tom Butterwith" date="2015-01-29T21:53:13.047Z" timestamp="2015-01-29T21:53:13.047Z">
+    <change idref="m1" attribute="fixedDate" type="date" from="2015-01-29T08:00:00.000Z" to="2015-01-30T08:00:00.000Z" resolved="yes"/>
+  </metadata-change-set>
+  <metadata-change-set user="Tom Butterwith" date="2015-01-29T22:05:57.403Z" timestamp="2015-01-29T22:05:57.403Z">
+    <change idref="m1" attribute="fixedDate" type="date" from="2015-01-30T08:00:00.000Z" to="2014-12-31T08:00:00.000Z"/>
+  </metadata-change-set>
+</changelog>
