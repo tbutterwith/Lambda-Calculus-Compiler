@@ -3,11 +3,13 @@
 	exception LexError
 }
 
+let allWords = ['a'-'z' 'A'-'Z' '_'] ['a'-'z' 'A'-'Z' '0'-'9' '_']*
+
 rule read = parse
 	| [' ' '\t']		{ read lexbuf }
 	| ['\n' ]        	{ EOL }
 	| ['0' - '9']+ as s { INT(int_of_string s) }
-	| ['a' - 'z']+ as s { STRING s }
+	| allWords as s		{ STRING s }
 	| '^' 				{ LAMBDA }
 	| '.'				{ DOT }
 	| '+'				{ PLUS }

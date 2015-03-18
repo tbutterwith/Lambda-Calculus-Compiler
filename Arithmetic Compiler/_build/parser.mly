@@ -1,12 +1,13 @@
 %{
-	open Lambda
-	type expr = Lambda of lambda  
+	open Lambda 
+	open Core.Std
 %}
 
 
 %token <int> INT
 %token <float> FLOAT
 %token <string> STRING
+%token <char> CHAR
 %token PLUS MINUS MULT DIV OPEN CLOSE EOL EOF LAMBDA DOT
 
 %type <Lambda.expr option> main
@@ -23,10 +24,9 @@ main:
 ;
 
 expr:
-	| INT 					{ $1 }
-	| OPEN expr CLOSE		{ $2 }
-	| expr PLUS expr 		{ $1 + $3 }
-	| expr MINUS expr		{ $1 - $3 }
-	| expr MULT expr 		{ $1 * $3 }
-	| expr DIV expr 		{ $1 / $3 }
+	| CHAR 						{ String (Char.to_string $1) }
+	| STRING 					{ String $1 }
+	| LAMBDA STRING DOT expr	{ Lambda ($2, $4) }
+	| LAMBDA CHAR DOT expr		{ Lambda ((Char.to_string $2), $4) }
+	| OPEN expr CLOSE			{ $2 }	
 ;

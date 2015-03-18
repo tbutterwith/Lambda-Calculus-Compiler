@@ -2,6 +2,7 @@ type token =
   | INT of (int)
   | FLOAT of (float)
   | STRING of (string)
+  | CHAR of (char)
   | PLUS
   | MINUS
   | MULT

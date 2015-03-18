@@ -1,11 +1,13 @@
 open Core.Std
 open Lexer
 open Printf
+open Lambda
 
 let rec parse_channel lexbuf = 
 	let output = Parser.main Lexer.read lexbuf in
 	match output with
-	| Some c -> printf "%i \n" c; flush stdout;
+	| Some c -> 
+		print_endline (lambda_to_string c);
 		parse_channel lexbuf
 	| None -> ()
 	
