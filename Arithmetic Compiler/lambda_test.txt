@@ -1,1 +1,1 @@
-^a.ab
+multiply 2 3

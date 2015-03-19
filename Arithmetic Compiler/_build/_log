@@ -18,20 +18,7 @@ ocamlfind ocamlc -c -thread -package core -o parser.cmi parser.mli # cached
 # Target: lexer.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:lexer.cmo, file:lexer.ml, implem, ocaml, package(core), quiet, thread }
 ocamlfind ocamlc -c -thread -package core -o lexer.cmo lexer.ml
 # Target: math.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:math.cmo, file:math.ml, implem, ocaml, package(core), quiet, thread }
-ocamlfind ocamlc -c -thread -package core -o math.cmo math.ml
-+ ocamlfind ocamlc -c -thread -package core -o math.cmo math.ml
-File "math.ml", line 19, characters 8-18:
-Warning 40: lex_curr_p was selected from type Lexing.lexbuf.
-It is not visible in the current scope, and will not 
-be selected if the type becomes unknown.
-File "math.ml", line 19, characters 31-41:
-Warning 40: lex_curr_p was selected from type Lexing.lexbuf.
-It is not visible in the current scope, and will not 
-be selected if the type becomes unknown.
-File "math.ml", line 19, characters 22-69:
-Warning 40: this record of type Lexing.position contains fields that are 
-not visible in the current scope: pos_fname.
-They will not be selected if the type becomes unknown.
+ocamlfind ocamlc -c -thread -package core -o math.cmo math.ml # cached
 # Target: lambda.cmx, tags: { compile, extension:cmx, extension:ml, file:lambda.cmx, file:lambda.ml, implem, native, ocaml, package(core), quiet, thread }
 ocamlfind ocamlopt -c -thread -package core -o lambda.cmx lambda.ml # cached
 # Target: parser.ml.depends, tags: { extension:ml, file:parser.ml, ocaml, ocamldep, package(core), quiet, thread }
@@ -41,20 +28,7 @@ ocamlfind ocamlopt -c -thread -package core -o parser.cmx parser.ml # cached
 # Target: lexer.cmx, tags: { compile, extension:cmx, extension:ml, file:lexer.cmx, file:lexer.ml, implem, native, ocaml, package(core), quiet, thread }
 ocamlfind ocamlopt -c -thread -package core -o lexer.cmx lexer.ml
 # Target: math.cmx, tags: { compile, extension:cmx, extension:ml, file:math.cmx, file:math.ml, implem, native, ocaml, package(core), quiet, thread }
-ocamlfind ocamlopt -c -thread -package core -o math.cmx math.ml
-+ ocamlfind ocamlopt -c -thread -package core -o math.cmx math.ml
-File "math.ml", line 19, characters 8-18:
-Warning 40: lex_curr_p was selected from type Lexing.lexbuf.
-It is not visible in the current scope, and will not 
-be selected if the type becomes unknown.
-File "math.ml", line 19, characters 31-41:
-Warning 40: lex_curr_p was selected from type Lexing.lexbuf.
-It is not visible in the current scope, and will not 
-be selected if the type becomes unknown.
-File "math.ml", line 19, characters 22-69:
-Warning 40: this record of type Lexing.position contains fields that are 
-not visible in the current scope: pos_fname.
-They will not be selected if the type becomes unknown.
+ocamlfind ocamlopt -c -thread -package core -o math.cmx math.ml # cached
 # Target: math.native, tags: { dont_link_with, extension:native, file:math.native, link, native, ocaml, package(core), program, quiet, thread }
 ocamlfind ocamlopt -linkpkg -thread -package core lambda.cmx parser.cmx lexer.cmx math.cmx -o math.native
 # Compilation successful.
