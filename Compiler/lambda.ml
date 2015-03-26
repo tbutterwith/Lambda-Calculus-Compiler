@@ -16,19 +16,6 @@ let rec lambda_to_string expr =
 	| Lambda (id, expr1) 	-> "(\\" ^ id ^ "." ^ (lambda_to_string expr1) ^ ")"
 	| App (expr1, expr2)	-> lambda_to_string expr1  ^ lambda_to_string expr2	
 
-let rec extract_lambdas expr expr_list = 
-	match expr with
-	| String e 				-> expr_list @ []
-	| Lambda (id, expr1) 	-> expr_list @ (Lambda (id, expr1) :: [])
-	| App (expr1, expr2)	-> expr_list @ extract_lambdas expr1 [] @ extract_lambdas expr2 []
-
-let rec create_lambda_list expr_list new_list = 
-	match expr_list with
-	| [] 	-> new_list
-	| x::y 	-> let extractedList = new_list @ (extract_lambdas x []) in
-				create_lambda_list y extractedList
-
-
 let rec expand_church expr = 
 	match expr with
 	| 0 -> "z"
