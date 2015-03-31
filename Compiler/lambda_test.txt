@@ -1,1 +1,1 @@
-multiply 2 3
+(\x.x(\y.y))2

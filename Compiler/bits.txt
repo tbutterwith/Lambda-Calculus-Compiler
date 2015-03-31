@@ -1,1 +1,21 @@
 printf "%s \n" lambda_to_string c; flush stdout;
+
+
+let succ 	= Lambda ( "nfx", String "f(nfx)" )
+let add		= Lambda ( "mnfx", String "mf(nfx)" )
+let mult	= Lambda ( "mnfx", String "m(nf)x" )
+
+
+let rec beta_simplification expr = 
+	match expr with
+	| String e 		-> e
+	| Lambda e 		-> e
+	| App (e1, e2)	-> beta_simplification e1; beta_simplification e2
+
+
+let rec lookup x (variables,values) = 
+ 	match variables, values with 
+ 	| y::yt, z::zt	-> if y = x then Some z else lookup x (yt,zt)
+ 	| [], [] 		-> None
+ 	| [], z::zt		-> None
+ 	| y::yt, []		-> 
