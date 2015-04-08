@@ -31,3 +31,23 @@ let rec lookup x (variables,values) =
 
 
 		(beta_simp c ([],[]))
+
+
+let rec beta_simp expr stack = 
+	print_endline( "eval " ^ lambda_to_string expr);
+	match expr with
+	| Char e 			-> lookup e stack
+	| Lambda (id, e1) 	-> Lambda (id, e1)
+	| App (e1, e2) 		-> 
+		match e1, e2 with
+		| Char e, Char f	-> beta_simp e1 stack; beta_simp e2 stack
+		| _ , _ 			->
+		let simplified_e2 = beta_simp e2 stack in 
+			let simplified_e1 = beta_simp e1 stack in
+				print_endline ("simp e1 : " ^ lambda_to_string simplified_e1 ^ "  simp e2 : " ^ lambda_to_string simplified_e2);
+				match simplified_e1 with
+				| Lambda (id, expr1) 	->
+					(match stack with
+					| variables, values -> beta_simp expr1 (id::variables, simplified_e2::values))
+				| Char x 				-> print_endline ("undefined variable " ^ Char.to_string x ^ " in " ^ Char.to_string x ^ lambda_to_string simplified_e2);
+											Char x;

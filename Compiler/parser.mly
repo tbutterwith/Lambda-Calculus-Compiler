@@ -26,7 +26,7 @@ main:
 expr:
 	| INT 						{ int_to_church $1 }
 	| CHAR 						{ Char $1 }
-	| LAMBDA CHAR DOT expr		{ Lambda ($2, $4) }
 	| expr expr					{ App ($1, $2) }
+	| LAMBDA CHAR DOT expr		{ Lambda ($2, $4) }
 	| OPEN expr CLOSE			{ $2 }
 ;
