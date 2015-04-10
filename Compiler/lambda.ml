@@ -4,7 +4,7 @@ type expr =
 	| Char of char
 	| Lambda of char * expr
 	| App of expr * expr
-	| Closure of expr * expr
+	| Close of expr
 
 
 let rec lambda_to_string expr = 
@@ -12,7 +12,7 @@ let rec lambda_to_string expr =
 	| Char e 			-> Char.to_string e
 	| Lambda (id, e1) 	-> "\\" ^ Char.to_string id ^ "." ^ (lambda_to_string e1) 
 	| App (e1, e2)		-> "app [" ^ lambda_to_string e1 ^ "][(" ^ lambda_to_string e2 ^ ")]"
-	| Closure (e1, e2)	-> "close " ^ lambda_to_string (App (e1 , e2))
+	| Close e			-> "{" ^ lambda_to_string e ^ "}"
 
 let rec expand_church expr = 
 	match expr with
@@ -35,13 +35,14 @@ let rec beta_simp expr stack =
 	print_endline ("eval " ^ lambda_to_string expr);
 	match expr with 
 	| Char e 			-> lookup e stack
-	| Lambda (id, e) 	-> Lambda (id, beta_simp e stack)
+	| Lambda (id, e) 	-> Close (Lambda (id, beta_simp e stack))
 	| App (e1, e2)		-> 
 			(match e1, e2 with
-			| Char c, _	->
+			| Char c, _			->
 				let new_c = beta_simp e1 stack in
+				 let new_e2 = beta_simp e2 stack in 	
 					(match new_c with
-					| Char c 	-> App (e1, e2)
+					| Char c 	-> Close (App (Char c, new_e2))
 					| _			-> beta_simp (App(new_c, e2)) stack)
 			| Lambda (id, e), Char c	-> 
 				(match stack with
@@ -51,8 +52,15 @@ let rec beta_simp expr stack =
 				| variables, values 	-> 
 					beta_simp expr1 (id1::variables, e2::values))
 			| Lambda (id1, exp1), App (exp2, exp3) 	->
-				let simp_app = beta_simp e2 stack in
-					beta_simp (App (e1, simp_app)) stack)
+				let new_expr2 = beta_simp exp2 stack in
+					let new_expr3 = beta_simp exp3 stack in
+					(match stack with
+					| variables, values 	-> beta_simp (App(exp1, new_expr3)) (id1::variables, new_expr2::values) )
+			| Close e, Close f -> Close( App( Close e, Close f))
+			| _ , Close e ->
+				let simp_app = beta_simp e1 stack in
+					beta_simp (App (simp_app, Close e)) stack)
+	| Close e 		-> Close e
 
 
 
