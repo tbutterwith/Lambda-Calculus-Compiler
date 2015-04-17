@@ -11,8 +11,8 @@ let rec lambda_to_string expr =
 	match expr with 
 	| Char e 			-> Char.to_string e
 	| Lambda (id, e1) 	-> "\\" ^ Char.to_string id ^ "." ^ (lambda_to_string e1) 
-	| App (e1, e2)		-> "app [" ^ lambda_to_string e1 ^ "][(" ^ lambda_to_string e2 ^ ")]"
-	| Close e			-> "{" ^ lambda_to_string e ^ "}"
+	| App (e1, e2)		-> lambda_to_string e1 ^ "(" ^ lambda_to_string e2 ^ ")"
+	| Close e			-> lambda_to_string e
 
 let rec expand_church expr = 
 	match expr with
@@ -26,13 +26,11 @@ let int_to_church expr =
 	| _		->	Lambda('s', Lambda ('z', (expand_church expr)))
 
 let rec lookup x (variables,values) = 
-	print_endline( "lookup " ^ lambda_to_string (Char x));
  	match variables, values with 
  	| y::yt, z::zt	-> if y = x then z else lookup x (yt,zt)
  	| [], [] 		-> Char x
 
 let rec beta_simp expr stack =
-	print_endline ("eval " ^ lambda_to_string expr);
 	match expr with 
 	| Char e 			-> lookup e stack
 	| Lambda (id, e) 	-> Close (Lambda (id, beta_simp e stack))

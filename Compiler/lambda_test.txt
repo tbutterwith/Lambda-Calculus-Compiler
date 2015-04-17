@@ -1,1 +1,2 @@
+(\n.\s.\z.s(n s z))(\s.\z.s(z));
 (\n.\s.\z.s(n s z))(\s.\z.s(z))

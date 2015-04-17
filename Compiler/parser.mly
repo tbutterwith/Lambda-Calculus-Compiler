@@ -5,8 +5,6 @@
 
 
 %token <int> INT
-%token <float> FLOAT
-%token <string> STRING
 %token <char> CHAR
 %token PLUS MINUS MULT DIV OPEN CLOSE EOL EOF LAMBDA DOT
 

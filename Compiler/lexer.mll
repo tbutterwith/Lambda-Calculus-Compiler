@@ -22,4 +22,5 @@ rule read = parse
 	| '('				{ OPEN }
 	| ')'				{ CLOSE }
 	| eof				{ EOF }
+	| ';'				{ EOL }
 	| _					{ raise LexError }
