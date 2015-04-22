@@ -6,7 +6,7 @@
 
 %token <int> INT
 %token <char> CHAR
-%token PLUS MINUS MULT DIV OPEN CLOSE EOL EOF LAMBDA DOT
+%token PLUS MINUS MULT DIV OPEN CLOSE EOL EOF LAMBDA DOT SUCC
 
 %type <Lambda.expr option> main
 %start main
@@ -27,4 +27,6 @@ expr:
 	| expr expr					{ App ($1, $2) }
 	| LAMBDA CHAR DOT expr		{ Lambda ($2, $4) }
 	| OPEN expr CLOSE			{ $2 }
+	| SUCC 						{ succ }
+	| PLUS 						{ add }
 ;

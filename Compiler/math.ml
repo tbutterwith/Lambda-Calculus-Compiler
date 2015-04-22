@@ -6,7 +6,9 @@ open Lambda
 let rec parse_channel lexbuf = 
 	let output = Parser.main Lexer.read lexbuf in
 	match output with
-	| Some c 	-> 	print_endline( lambda_to_string (beta_simp c ([],[])));
+	| Some c 	-> 	print_endline( "" );
+					print_endline( "   " ^ lambda_to_string c );
+					print_endline( "=> " ^ lambda_to_string (beta_simp c ([],[])));
 					parse_channel lexbuf 
 	| None 		-> 	()
 			

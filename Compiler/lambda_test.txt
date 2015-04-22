@@ -1,2 +1,2 @@
-(\n.\s.\z.s(n s z))(\s.\z.s(z));
-(\n.\s.\z.s(n s z))(\s.\z.s(z))
+plus 1 5;
+(\q.\w.q(w)) f g

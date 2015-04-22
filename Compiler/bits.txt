@@ -2,6 +2,7 @@ printf "%s \n" lambda_to_string c; flush stdout;
 
 
 let succ 	= Lambda ( "nfx", String "f(nfx)" )
+let succ 	= Lambda ( 'n', Lambda ('s', Lambda('z', App( Char 's', App(Char 'n', App (Char 's', Char 'z'))))))
 let add		= Lambda ( "mnfx", String "mf(nfx)" )
 let mult	= Lambda ( "mnfx", String "m(nf)x" )
 

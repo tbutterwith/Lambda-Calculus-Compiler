@@ -5,7 +5,10 @@ type expr =
 	| Lambda of char * expr
 	| App of expr * expr
 	| Close of expr
+	| Error of string
 
+let succ 	= Lambda ( 'n', Lambda ('s', Lambda('z', App( Char 's', App(Char 'n', App (Char 's', Char 'z'))))))
+let add		= Lambda ( 'm', Lambda ('n', Lambda ('f', Lambda ('x', App(Char 'm', App(Char 'f', App(Char 'n', App(Char 'f', Char 'x'))))))))
 
 let rec lambda_to_string expr = 
 	match expr with 
@@ -13,6 +16,7 @@ let rec lambda_to_string expr =
 	| Lambda (id, e1) 	-> "\\" ^ Char.to_string id ^ "." ^ (lambda_to_string e1) 
 	| App (e1, e2)		-> lambda_to_string e1 ^ "(" ^ lambda_to_string e2 ^ ")"
 	| Close e			-> lambda_to_string e
+	| Error e 			-> e
 
 let rec expand_church expr = 
 	match expr with
@@ -30,10 +34,29 @@ let rec lookup x (variables,values) =
  	| y::yt, z::zt	-> if y = x then z else lookup x (yt,zt)
  	| [], [] 		-> Char x
 
+let rec remove_closed expr = 
+	match expr with
+	| Char c 			-> Char c
+	| Lambda(id, e)		-> Lambda (id, remove_closed e)
+	| App(e1, e2)		-> let exp1 = remove_closed e1 in
+							let exp2 = remove_closed e2 in
+							 App (exp1, exp2)
+	| Close e 			-> remove_closed e
+
+let rec combine_apps expr =
+	match expr with
+	| App (e1, e2) 		->
+		(match e1, e2 with
+			| App (ex1, ex2), App (ex3, ex4) -> combine_apps (App(ex1, App (ex2, App(ex3, ex4))))
+			| _, _ -> App (e1, e2))
+	| Lambda (id, e)	-> Lambda (id, combine_apps e)
+	| Char c 			-> expr
+
 let rec beta_simp expr stack =
 	match expr with 
 	| Char e 			-> lookup e stack
-	| Lambda (id, e) 	-> Close (Lambda (id, beta_simp e stack))
+	| Lambda (id, e) 	-> let Lambda(id2, e2) = combine_apps expr in
+							Close (Lambda (id2, beta_simp e2 stack))
 	| App (e1, e2)		-> 
 			(match e1, e2 with
 			| Char c, _			->
@@ -48,16 +71,27 @@ let rec beta_simp expr stack =
 			| Lambda (id1, expr1), Lambda (id2, expr2) 	->
 				(match stack with
 				| variables, values 	-> 
-					beta_simp expr1 (id1::variables, e2::values))
+					let simp_lamb = beta_simp expr1 (id1::variables, e2::values) in
+					 beta_simp (remove_closed simp_lamb) (id1::variables, e2::values))
 			| Lambda (id1, exp1), App (exp2, exp3) 	->
-				let new_expr2 = beta_simp exp2 stack in
-					let new_expr3 = beta_simp exp3 stack in
 					(match stack with
-					| variables, values 	-> beta_simp (App(exp1, new_expr3)) (id1::variables, new_expr2::values) )
+					| variables, values 	-> 
+						let simp_e1 = beta_simp exp1 (id1::variables, exp2::values) in
+						beta_simp (App(simp_e1, exp3)) (id1::variables, exp2::values) )
+			| Lambda (id, exp), Close e ->
+				(match stack with
+				| variables, values 	-> 
+					beta_simp exp (id::variables, e::values))
+			| App (expr1, expr2), App (expr3, expr4) ->
+				let simp_e1 = beta_simp (App (expr1, expr2)) stack in
+					let simp_e2 = beta_simp (App (expr3, expr4)) stack in
+					beta_simp (App (simp_e1, simp_e2)) stack
 			| Close e, Close f -> Close( App( Close e, Close f))
 			| _ , Close e ->
 				let simp_app = beta_simp e1 stack in
-					beta_simp (App (simp_app, Close e)) stack)
+					beta_simp (App (simp_app, Close e)) stack
+			| Close e, _ -> let rem_clo = remove_closed e in
+								beta_simp (App (rem_clo, e2)) stack)
 	| Close e 		-> Close e
 
 
