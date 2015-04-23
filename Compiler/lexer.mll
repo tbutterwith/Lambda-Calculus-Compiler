@@ -12,7 +12,7 @@ rule read = parse
 	| '\\' 				{ LAMBDA }
 	| '.'				{ DOT }
 	| "succ"			{ SUCC }
-	| "plus"			{ PLUS }
+	| "addition"		{ PLUS }
 	| '+'				{ PLUS }
 	| '-'				{ MINUS }
 	| '*'				{ MULT }

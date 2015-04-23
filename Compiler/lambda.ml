@@ -9,13 +9,14 @@ type expr =
 
 let succ 	= Lambda ( 'n', Lambda ('s', Lambda('z', App( Char 's', App(Char 'n', App (Char 's', Char 'z'))))))
 let add		= Lambda ( 'm', Lambda ('n', Lambda ('f', Lambda ('x', App(Char 'm', App(Char 'f', App(Char 'n', App(Char 'f', Char 'x'))))))))
+let mult 	= Lambda ( 'm', Lambda ('n', Lambda ('s', App(Char 'm', App(Char 'n', Char 's')))))
 
 let rec lambda_to_string expr = 
 	match expr with 
 	| Char e 			-> Char.to_string e
 	| Lambda (id, e1) 	-> "\\" ^ Char.to_string id ^ "." ^ (lambda_to_string e1) 
-	| App (e1, e2)		-> lambda_to_string e1 ^ "(" ^ lambda_to_string e2 ^ ")"
-	| Close e			-> lambda_to_string e
+	| App (e1, e2)		-> "a{" ^ lambda_to_string e1 ^ "}{(" ^ lambda_to_string e2 ^ ")}"
+	| Close e			-> "c[" ^ lambda_to_string e ^ "]"
 	| Error e 			-> e
 
 let rec expand_church expr = 
@@ -31,7 +32,7 @@ let int_to_church expr =
 
 let rec lookup x (variables,values) = 
  	match variables, values with 
- 	| y::yt, z::zt	-> if y = x then z else lookup x (yt,zt)
+ 	| y::yt, z::zt	-> if y = x then let var = print_endline ("lu: " ^lambda_to_string z) in z else lookup x (yt,zt)
  	| [], [] 		-> Char x
 
 let rec remove_closed expr = 
@@ -47,15 +48,19 @@ let rec combine_apps expr =
 	match expr with
 	| App (e1, e2) 		->
 		(match e1, e2 with
-			| App (ex1, ex2), App (ex3, ex4) -> combine_apps (App(ex1, App (ex2, App(ex3, ex4))))
-			| _, _ -> App (e1, e2))
+			| App (ex1, ex2), App (ex3, ex4) 	-> App(combine_apps ex1, combine_apps (App (ex2, App(ex3, ex4))))
+			| App (ex1, ex2), _ 				-> App(combine_apps ex1, combine_apps (App (ex2, e2)))
+			| _ , App (ex1, ex2) 				-> App(e1, combine_apps e2)
+			| _, _ 								-> App (e1, e2))
 	| Lambda (id, e)	-> Lambda (id, combine_apps e)
 	| Char c 			-> expr
 
 let rec beta_simp expr stack =
+	print_endline( lambda_to_string expr);
 	match expr with 
 	| Char e 			-> lookup e stack
 	| Lambda (id, e) 	-> let Lambda(id2, e2) = combine_apps expr in
+							let var = print_endline("re-ap: " ^ lambda_to_string (Lambda (id2, e2))) in
 							Close (Lambda (id2, beta_simp e2 stack))
 	| App (e1, e2)		-> 
 			(match e1, e2 with

@@ -29,4 +29,5 @@ expr:
 	| OPEN expr CLOSE			{ $2 }
 	| SUCC 						{ succ }
 	| PLUS 						{ add }
+	| MULT						{ mult }
 ;

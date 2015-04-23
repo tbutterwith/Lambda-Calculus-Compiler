@@ -4,7 +4,9 @@ printf "%s \n" lambda_to_string c; flush stdout;
 let succ 	= Lambda ( "nfx", String "f(nfx)" )
 let succ 	= Lambda ( 'n', Lambda ('s', Lambda('z', App( Char 's', App(Char 'n', App (Char 's', Char 'z'))))))
 let add		= Lambda ( "mnfx", String "mf(nfx)" )
+let add		= Lambda ( 'm', Lambda ('n', Lambda ('f', Lambda ('x', App(Char 'm', App(Char 'f', App(Char 'n', App(Char 'f', Char 'x'))))))))
 let mult	= Lambda ( "mnfx", String "m(nf)x" )
+let mult 	= Lambda ( 'm', Lambda ('n', Lambda ('f', Lambda('x', App(Char 'm', App(Char 'n', App(Char 'f', Char 'x')))))))
 
 
 let rec beta_simplification expr = 
@@ -37,3 +39,10 @@ let rec lookup x (variables,values) =
 			
 				let simp_app = beta_simp e2 stack in
 					beta_simp (App (e1, simp_app)) stack
+
+					
+		(match e1, e2 with
+			| App (ex1, ex2), App (ex3, ex4) 	-> 
+			| App (ex1, ex2), _ 				-> 
+			| _ , App (ex1, ex2) 				-> 
+			| _, _ 								-> 
