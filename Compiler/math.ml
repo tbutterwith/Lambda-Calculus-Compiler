@@ -8,7 +8,7 @@ let rec parse_channel lexbuf =
 	match output with
 	| Some c 	-> 	print_endline( "" );
 					print_endline( "   " ^ lambda_to_string c );
-					print_endline( "=> " ^ lambda_to_string (beta_simp c ([],[])));
+					print_endline( "=> " ^ lambda_to_string (beta_simp c ([],[]) 0));
 					parse_channel lexbuf 
 	| None 		-> 	()
 			

@@ -11,7 +11,7 @@ rule read = parse
 	| ['0' - '9']+ as s { INT(int_of_string s) }
 	| '\\' 				{ LAMBDA }
 	| '.'				{ DOT }
-	| "succ"			{ SUCC }
+	| "successor"		{ SUCC }
 	| "addition"		{ PLUS }
 	| '+'				{ PLUS }
 	| '-'				{ MINUS }

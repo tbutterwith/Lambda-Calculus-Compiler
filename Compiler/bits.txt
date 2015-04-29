@@ -6,7 +6,7 @@ let succ 	= Lambda ( 'n', Lambda ('s', Lambda('z', App( Char 's', App(Char 'n', 
 let add		= Lambda ( "mnfx", String "mf(nfx)" )
 let add		= Lambda ( 'm', Lambda ('n', Lambda ('f', Lambda ('x', App(Char 'm', App(Char 'f', App(Char 'n', App(Char 'f', Char 'x'))))))))
 let mult	= Lambda ( "mnfx", String "m(nf)x" )
-let mult 	= Lambda ( 'm', Lambda ('n', Lambda ('f', Lambda('x', App(Char 'm', App(Char 'n', App(Char 'f', Char 'x')))))))
+let mult 	= Lambda ( 'm', Lambda ('n', Lambda ('f', Lambda('x', App(Char 'm', App(Char 'f', App(Char 'n', App(Char 'f', Char 'x'))))))))
 
 
 let rec beta_simplification expr = 
