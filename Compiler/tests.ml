@@ -52,6 +52,7 @@ let rec parse_channel lexbuf =
 	let output = Parser.main Lexer.read lexbuf in
 	match output with
 	| Some c 	-> 	print_endline( "Read as:          " ^ lambda_to_string c );
+					print_endline( "Alpha equivalence:" ^ lambda_to_string (alpha_equiv c []));
 					print_endline( "Simplified to:    " ^ lambda_to_string (beta_simp c ([],[]) 0));
 					print_endline( "" );
 					parse_channel lexbuf 
@@ -69,3 +70,6 @@ let rec parse_list tests =
 
 let () = 
 	parse_list test_list
+
+
+

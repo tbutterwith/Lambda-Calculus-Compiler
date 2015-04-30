@@ -52,11 +52,38 @@ let rec combine_apps expr =
 	| Lambda (id, e)	-> Lambda (id, combine_apps e)
 	| Char c 			-> expr
 
-let rec remove_from_list c c_list = 
-	match c_list with
-	| [] 	-> []
-	| x::xt -> if x = c then xt else x:: (remove_from_list c xt)
+let rec lookup_id id used = 
+	match used with
+	| [] 		-> false
+	| x::xt 	-> if x = id then true else (lookup_id id xt)
 
+let rec replace_id expr id replacement = 
+	match expr with
+	| Char c 			-> if c = id then Char replacement else Char c
+	| Lambda (i, e)		-> if i = id then Lambda (replacement, (replace_id e id replacement)) else Lambda (i, (replace_id e id replacement))
+	| App (e1, e2)		-> App( replace_id e1 id replacement, replace_id e2 id replacement)
+
+let rec find_replacement_id used alpha =
+	match alpha with
+	| [] 	-> 'a'	
+	| x::xt -> if (lookup_id x used) = false then x else find_replacement_id used xt
+
+let rec get_used_ids expr used = 
+	match expr with
+	| Char c 		-> c::used
+	| Lambda(id, e) -> id::(get_used_ids e used)
+	| App (e1, e2) 	-> (get_used_ids e1 used)@(get_used_ids e2 used)
+
+let rec alpha_equiv expr taken = 
+	match expr with
+	| Char c 			-> Char c
+	| Lambda (id, e)  	-> if (lookup_id id taken) = false then Lambda (id, (alpha_equiv e (id::taken))) else 
+								let new_id = find_replacement_id taken alpha_list in
+								  let new_lambda = Lambda (new_id, (replace_id e id new_id)) in
+								   alpha_equiv new_lambda taken
+	| App(e1, e2)		-> let alpha_e1 = alpha_equiv e1 taken in
+	 						let alpha_e2 = alpha_equiv e2 (get_used_ids alpha_e1 taken) in
+	 						 App (alpha_e1, alpha_e2)
 
 let rec lookup x (variables,values) = 
  	match variables, values with 

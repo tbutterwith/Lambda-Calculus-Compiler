@@ -46,3 +46,6 @@ let rec lookup x (variables,values) =
 			| App (ex1, ex2), _ 				-> 
 			| _ , App (ex1, ex2) 				-> 
 			| _, _ 								-> 
+
+
+			replace_id expr id (find_replacement_id taken alpha_list)
