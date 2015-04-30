@@ -11,6 +11,8 @@ let succ 	= Lambda ( 'n', Lambda ('s', Lambda('z', App( Char 's', App(Char 'n', 
 let add		= Lambda ( 'm', Lambda ('n', Lambda ('f', Lambda ('x', App(Char 'm', App(Char 'f', App(Char 'n', App(Char 'f', Char 'x'))))))))
 let mult 	= Lambda ( 'n', Lambda ('m', App( Char 'm', App(add, App( Char 'n', Lambda ('s', Lambda ('z', Char 'z')))))))
 
+let alpha_list = ['a';'b';'c';'d';'e';'f';'g';'h';'i';'j';'k';'l';'m';'n';'o';'p';'q';'r';'s';'t';'u';'v';'w';'x';'y';'z';]
+
 let rec lambda_to_string expr = 
 	match expr with 
 	| Char e 			-> Char.to_string e
@@ -29,11 +31,6 @@ let int_to_church expr =
 	| 0 	->	Lambda('s', Lambda ('z', Char 'z'))
 	| 1		->	Lambda('s', Lambda ('z', App (Char 's', Char 'z')))
 	| _		->	Lambda('s', Lambda ('z', (expand_church expr)))
-
-let rec lookup x (variables,values) = 
- 	match variables, values with 
- 	| y::yt, z::zt	-> if y = x then z else lookup x (yt,zt)
- 	| [], [] 		-> Char x
 
 let rec remove_closed expr = 
 	match expr with
@@ -55,8 +52,18 @@ let rec combine_apps expr =
 	| Lambda (id, e)	-> Lambda (id, combine_apps e)
 	| Char c 			-> expr
 
+let rec remove_from_list c c_list = 
+	match c_list with
+	| [] 	-> []
+	| x::xt -> if x = c then xt else x:: (remove_from_list c xt)
+
+
+let rec lookup x (variables,values) = 
+ 	match variables, values with 
+ 	| y::yt, z::zt	-> if y = x then z else lookup x (yt,zt)
+ 	| [], [] 		-> Char x
+
 let rec beta_simp expr stack steps=
-	print_endline( lambda_to_string expr );
 	match steps with 
 	| 200 	-> expr
 	| _		->
