@@ -36,24 +36,28 @@ let test_list = [
 
 	{ name = "lambda on lambda";
       input = "(\\x.x)(\\y.y)";
-	  output = "(\\y.y)";};
+	  output = "\\y.y";};
 
 	{ name = "successor";
-      input = "+";
+      input = "successor";
+	  output = "\\n.\\s.\\z.s(n(s(z)))";};
+
+	{ name = "addition";
+      input = "addition";
 	  output = "\\m.\\n.\\f.\\x.m(f(n(f(x))))";};
 
-	{ name = "successor application";
-	  input = "+ 2 3";
+	{ name = "addition application";
+	  input = "addition 2 3";
 	  output = "\\f.\\x.f(f(f(f(f(x)))))"; };
-
 ]
 
 let rec parse_channel lexbuf = 
 	let output = Parser.main Lexer.read lexbuf in
 	match output with
 	| Some c 	-> 	print_endline( "Read as:          " ^ lambda_to_string c );
-					print_endline( "Alpha equivalence:" ^ lambda_to_string (alpha_equiv c []));
-					print_endline( "Simplified to:    " ^ lambda_to_string (beta_simp c ([],[]) 0));
+					let alpha = (alpha_equiv c []) in
+					let value = print_endline( "Alpha equivalence:" ^ (lambda_to_string alpha)) in
+					print_endline( "Simplified to:    " ^ lambda_to_string (beta_simp alpha ([],[]) 0));
 					print_endline( "" );
 					parse_channel lexbuf 
 	| None 		-> 	()

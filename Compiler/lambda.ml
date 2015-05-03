@@ -1,6 +1,7 @@
 open Core.Std
 
 type expr = 
+	| Int of int
 	| Char of char
 	| Lambda of char * expr
 	| App of expr * expr
@@ -9,16 +10,25 @@ type expr =
 
 let succ 	= Lambda ( 'n', Lambda ('s', Lambda('z', App( Char 's', App(Char 'n', App (Char 's', Char 'z'))))))
 let add		= Lambda ( 'm', Lambda ('n', Lambda ('f', Lambda ('x', App(Char 'm', App(Char 'f', App(Char 'n', App(Char 'f', Char 'x'))))))))
-let mult 	= Lambda ( 'n', Lambda ('m', App( Char 'm', App(add, App( Char 'n', Lambda ('s', Lambda ('z', Char 'z')))))))
+let mult 	= Lambda ( 'p', Lambda ('q', App( Char 'q', App(add, App( Char 'p', Lambda ('s', Lambda ('z', Char 'z')))))))
 
 let alpha_list = ['a';'b';'c';'d';'e';'f';'g';'h';'i';'j';'k';'l';'m';'n';'o';'p';'q';'r';'s';'t';'u';'v';'w';'x';'y';'z';]
 
 let rec lambda_to_string expr = 
 	match expr with 
+	| Int i 			-> string_of_int i
 	| Char e 			-> Char.to_string e
 	| Lambda (id, e1) 	-> "\\" ^ Char.to_string id ^ "." ^ (lambda_to_string e1) 
-	| App (e1, e2)		-> "" ^ lambda_to_string e1 ^ "(" ^ lambda_to_string e2 ^ ")"
-	| Close e			-> "" ^ lambda_to_string e ^ ""
+	| App (e1, e2)		-> lambda_to_string e1 ^ "(" ^ lambda_to_string e2 ^ ")"
+	| Close e			-> lambda_to_string e
+	| Error e 			-> e
+
+let rec lambda_to_string_annotate expr = 
+	match expr with 
+	| Char e 			-> Char.to_string e
+	| Lambda (id, e1) 	-> "\\" ^ Char.to_string id ^ "." ^ (lambda_to_string e1) 
+	| App (e1, e2)		-> "a {" ^ lambda_to_string e1 ^ "}{(" ^ lambda_to_string e2 ^ ")}"
+	| Close e			-> "c [" ^ lambda_to_string e ^ "]"
 	| Error e 			-> e
 
 let rec expand_church expr = 
@@ -76,6 +86,7 @@ let rec get_used_ids expr used =
 
 let rec alpha_equiv expr taken = 
 	match expr with
+	| Int i 			-> Int i
 	| Char c 			-> Char c
 	| Lambda (id, e)  	-> if (lookup_id id taken) = false then Lambda (id, (alpha_equiv e (id::taken))) else 
 								let new_id = find_replacement_id taken alpha_list in
@@ -94,7 +105,8 @@ let rec beta_simp expr stack steps=
 	match steps with 
 	| 200 	-> expr
 	| _		->
-		match expr with 
+		match expr with
+		| Int i 			-> Int i 
 		| Char e 			-> lookup e stack
 		| Lambda (id, e) 	-> let Lambda(id2, e2) = combine_apps expr in
 								Close (Lambda (id2, beta_simp e2 stack (steps+1)))
@@ -127,6 +139,9 @@ let rec beta_simp expr stack steps=
 					let simp_e1 = beta_simp (App (expr1, expr2)) stack (steps+1) in
 						let simp_e2 = beta_simp (App (expr3, expr4)) stack (steps+1) in
 						beta_simp (App (simp_e1, simp_e2)) stack (steps+1)
+				| App (expr1, expr2), _ -> 
+					let simp_e1 = beta_simp e1 stack (steps+1) in
+					 beta_simp (App (simp_e1, e2)) stack (steps+1)
 				| Close e, Close f -> Close( App( Close e, Close f))
 				| _ , Close e ->
 					let simp_app = beta_simp e1 stack (steps+1) in

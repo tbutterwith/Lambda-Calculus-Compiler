@@ -10,6 +10,7 @@ let rec parse_channel lexbuf =
 					print_endline( "   " ^ lambda_to_string c );
 					let alpha = alpha_equiv c [] in 
 					print_endline( "=> " ^ lambda_to_string (beta_simp alpha ([],[]) 0));
+					print_endline( "" );
 					parse_channel lexbuf 
 	| None 		-> 	()
 			

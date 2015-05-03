@@ -1,12 +1,13 @@
 %{
 	open Lambda 
 	open Core.Std
+	exception Unrecognised_syntax of string
 %}
 
 
 %token <int> INT
 %token <char> CHAR
-%token PLUS MINUS MULT DIV OPEN CLOSE EOL EOF LAMBDA DOT SUCC
+%token PLUS MINUS MULT DIV OPEN CLOSE EOL EOF LAMBDA DOT SUCC ADDITION MULTIPLY
 
 %type <Lambda.expr option> main
 %start main
@@ -28,6 +29,5 @@ expr:
 	| LAMBDA CHAR DOT expr		{ Lambda ($2, $4) }
 	| OPEN expr CLOSE			{ $2 }
 	| SUCC 						{ succ }
-	| PLUS 						{ add }
-	| MULT						{ mult }
+	| ADDITION					{ add }
 ;
