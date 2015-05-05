@@ -1,5 +1,7 @@
 %{
-	open Lambda 
+	open Simplification
+	open Lambda_type
+	open Lib 
 	open Core.Std
 	exception Unrecognised_syntax of string
 %}
@@ -9,7 +11,7 @@
 %token <char> CHAR
 %token PLUS MINUS MULT DIV OPEN CLOSE EOL EOF LAMBDA DOT SUCC ADDITION MULTIPLY
 
-%type <Lambda.expr option> main
+%type <Lambda_type.expr option> main
 %start main
 
 %%

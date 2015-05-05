@@ -1,0 +1,156 @@
+### Starting build.
+# Target: lambda_compiler.ml.depends, tags: { extension:ml, file:lambda_compiler.ml, ocaml, ocamldep, package(core), quiet, thread }
+ocamlfind ocamldep -package core -modules lambda_compiler.ml > lambda_compiler.ml.depends
+# Target: lambda_type.ml.depends, tags: { extension:ml, file:lambda_type.ml, ocaml, ocamldep, package(core), quiet, thread }
+ocamlfind ocamldep -package core -modules lambda_type.ml > lambda_type.ml.depends
+# Target: lexer.mll, tags: { extension:mll, file:lexer.mll, lexer, ocaml, ocamllex, package(core), quiet, thread }
+/usr/local/bin/ocamllex.opt -q lexer.mll
+# Target: lexer.ml.depends, tags: { extension:ml, file:lexer.ml, ocaml, ocamldep, package(core), quiet, thread }
+ocamlfind ocamldep -package core -modules lexer.ml > lexer.ml.depends
+# Target: parser.mly, tags: { extension:mly, file:parser.mly, ocaml, ocamlyacc, package(core), parser, quiet, thread }
+/usr/local/bin/ocamlyacc parser.mly
++ /usr/local/bin/ocamlyacc parser.mly
+12 shift/reduce conflicts.
+# Target: parser.mli.depends, tags: { extension:mli, file:parser.mli, ocaml, ocamldep, package(core), quiet, thread }
+ocamlfind ocamldep -package core -modules parser.mli > parser.mli.depends
+# Target: lambda_type.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:lambda_type.cmo, file:lambda_type.ml, implem, ocaml, package(core), quiet, thread }
+ocamlfind ocamlc -c -thread -package core -o lambda_type.cmo lambda_type.ml
+# Target: parser.cmi, tags: { byte, compile, extension:mli, file:parser.mli, interf, ocaml, package(core), quiet, thread }
+ocamlfind ocamlc -c -thread -package core -o parser.cmi parser.mli
+# Target: simplification.ml.depends, tags: { extension:ml, file:simplification.ml, ocaml, ocamldep, package(core), quiet, thread }
+ocamlfind ocamldep -package core -modules simplification.ml > simplification.ml.depends
+# Target: lib.ml.depends, tags: { extension:ml, file:lib.ml, ocaml, ocamldep, package(core), quiet, thread }
+ocamlfind ocamldep -package core -modules lib.ml > lib.ml.depends
+# Target: lib.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:lib.cmo, file:lib.ml, implem, ocaml, package(core), quiet, thread }
+ocamlfind ocamlc -c -thread -package core -o lib.cmo lib.ml
+# Target: lexer.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:lexer.cmo, file:lexer.ml, implem, ocaml, package(core), quiet, thread }
+ocamlfind ocamlc -c -thread -package core -o lexer.cmo lexer.ml
+# Target: simplification.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:simplification.cmo, file:simplification.ml, implem, ocaml, package(core), quiet, thread }
+ocamlfind ocamlc -c -thread -package core -o simplification.cmo simplification.ml
++ ocamlfind ocamlc -c -thread -package core -o simplification.cmo simplification.ml
+File "simplification.ml", line 16, characters 1-282:
+Warning 8: this pattern-matching is not exhaustive.
+Here is an example of a value that is not matched:
+Int _
+File "simplification.ml", line 35, characters 1-235:
+Warning 8: this pattern-matching is not exhaustive.
+Here is an example of a value that is not matched:
+(Int _|Error _)
+File "simplification.ml", line 44, characters 1-404:
+Warning 8: this pattern-matching is not exhaustive.
+Here is an example of a value that is not matched:
+(Int _|Close _|Error _)
+File "simplification.ml", line 60, characters 1-296:
+Warning 8: this pattern-matching is not exhaustive.
+Here is an example of a value that is not matched:
+(Int _|Close _|Error _)
+File "simplification.ml", line 71, characters 1-151:
+Warning 8: this pattern-matching is not exhaustive.
+Here is an example of a value that is not matched:
+(Int _|Close _|Error _)
+File "simplification.ml", line 77, characters 1-503:
+Warning 8: this pattern-matching is not exhaustive.
+Here is an example of a value that is not matched:
+(Close _|Error _)
+File "simplification.ml", line 89, characters 2-112:
+Warning 8: this pattern-matching is not exhaustive.
+Here is an example of a value that is not matched:
+([], _::_)
+File "simplification.ml", line 100, characters 27-42:
+Warning 8: this pattern-matching is not exhaustive.
+Here is an example of a value that is not matched:
+(Int _|Char _|App (_, _)|Close _|Error _)
+File "simplification.ml", line 103, characters 4-1767:
+Warning 8: this pattern-matching is not exhaustive.
+Here is an example of a value that is not matched:
+((Int _|Error _), (Int _|Char _|Lambda (_, _)|App (_, _)|Error _))
+File "simplification.ml", line 97, characters 2-2012:
+Warning 8: this pattern-matching is not exhaustive.
+Here is an example of a value that is not matched:
+Error _
+# Target: lambda_compiler.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:lambda_compiler.cmo, file:lambda_compiler.ml, implem, ocaml, package(core), quiet, thread }
+ocamlfind ocamlc -c -thread -package core -o lambda_compiler.cmo lambda_compiler.ml
++ ocamlfind ocamlc -c -thread -package core -o lambda_compiler.cmo lambda_compiler.ml
+File "lambda_compiler.ml", line 24, characters 8-18:
+Warning 40: lex_curr_p was selected from type Lexing.lexbuf.
+It is not visible in the current scope, and will not 
+be selected if the type becomes unknown.
+File "lambda_compiler.ml", line 24, characters 31-41:
+Warning 40: lex_curr_p was selected from type Lexing.lexbuf.
+It is not visible in the current scope, and will not 
+be selected if the type becomes unknown.
+File "lambda_compiler.ml", line 24, characters 22-69:
+Warning 40: this record of type Lexing.position contains fields that are 
+not visible in the current scope: pos_fname.
+They will not be selected if the type becomes unknown.
+# Target: parser.ml.depends, tags: { extension:ml, file:parser.ml, ocaml, ocamldep, package(core), quiet, thread }
+ocamlfind ocamldep -package core -modules parser.ml > parser.ml.depends
+# Target: lambda_type.cmx, tags: { compile, extension:cmx, extension:ml, file:lambda_type.cmx, file:lambda_type.ml, implem, native, ocaml, package(core), quiet, thread }
+ocamlfind ocamlopt -c -thread -package core -o lambda_type.cmx lambda_type.ml
+# Target: lib.cmx, tags: { compile, extension:cmx, extension:ml, file:lib.cmx, file:lib.ml, implem, native, ocaml, package(core), quiet, thread }
+ocamlfind ocamlopt -c -thread -package core -o lib.cmx lib.ml
+# Target: simplification.cmx, tags: { compile, extension:cmx, extension:ml, file:simplification.cmx, file:simplification.ml, implem, native, ocaml, package(core), quiet, thread }
+ocamlfind ocamlopt -c -thread -package core -o simplification.cmx simplification.ml
++ ocamlfind ocamlopt -c -thread -package core -o simplification.cmx simplification.ml
+File "simplification.ml", line 16, characters 1-282:
+Warning 8: this pattern-matching is not exhaustive.
+Here is an example of a value that is not matched:
+Int _
+File "simplification.ml", line 35, characters 1-235:
+Warning 8: this pattern-matching is not exhaustive.
+Here is an example of a value that is not matched:
+(Int _|Error _)
+File "simplification.ml", line 44, characters 1-404:
+Warning 8: this pattern-matching is not exhaustive.
+Here is an example of a value that is not matched:
+(Int _|Close _|Error _)
+File "simplification.ml", line 60, characters 1-296:
+Warning 8: this pattern-matching is not exhaustive.
+Here is an example of a value that is not matched:
+(Int _|Close _|Error _)
+File "simplification.ml", line 71, characters 1-151:
+Warning 8: this pattern-matching is not exhaustive.
+Here is an example of a value that is not matched:
+(Int _|Close _|Error _)
+File "simplification.ml", line 77, characters 1-503:
+Warning 8: this pattern-matching is not exhaustive.
+Here is an example of a value that is not matched:
+(Close _|Error _)
+File "simplification.ml", line 89, characters 2-112:
+Warning 8: this pattern-matching is not exhaustive.
+Here is an example of a value that is not matched:
+([], _::_)
+File "simplification.ml", line 100, characters 27-42:
+Warning 8: this pattern-matching is not exhaustive.
+Here is an example of a value that is not matched:
+(Int _|Char _|App (_, _)|Close _|Error _)
+File "simplification.ml", line 103, characters 4-1767:
+Warning 8: this pattern-matching is not exhaustive.
+Here is an example of a value that is not matched:
+((Int _|Error _), (Int _|Char _|Lambda (_, _)|App (_, _)|Error _))
+File "simplification.ml", line 97, characters 2-2012:
+Warning 8: this pattern-matching is not exhaustive.
+Here is an example of a value that is not matched:
+Error _
+# Target: parser.cmx, tags: { compile, extension:cmx, extension:ml, file:parser.cmx, file:parser.ml, implem, native, ocaml, package(core), quiet, thread }
+ocamlfind ocamlopt -c -thread -package core -o parser.cmx parser.ml
+# Target: lexer.cmx, tags: { compile, extension:cmx, extension:ml, file:lexer.cmx, file:lexer.ml, implem, native, ocaml, package(core), quiet, thread }
+ocamlfind ocamlopt -c -thread -package core -o lexer.cmx lexer.ml
+# Target: lambda_compiler.cmx, tags: { compile, extension:cmx, extension:ml, file:lambda_compiler.cmx, file:lambda_compiler.ml, implem, native, ocaml, package(core), quiet, thread }
+ocamlfind ocamlopt -c -thread -package core -o lambda_compiler.cmx lambda_compiler.ml
++ ocamlfind ocamlopt -c -thread -package core -o lambda_compiler.cmx lambda_compiler.ml
+File "lambda_compiler.ml", line 24, characters 8-18:
+Warning 40: lex_curr_p was selected from type Lexing.lexbuf.
+It is not visible in the current scope, and will not 
+be selected if the type becomes unknown.
+File "lambda_compiler.ml", line 24, characters 31-41:
+Warning 40: lex_curr_p was selected from type Lexing.lexbuf.
+It is not visible in the current scope, and will not 
+be selected if the type becomes unknown.
+File "lambda_compiler.ml", line 24, characters 22-69:
+Warning 40: this record of type Lexing.position contains fields that are 
+not visible in the current scope: pos_fname.
+They will not be selected if the type becomes unknown.
+# Target: lambda_compiler.native, tags: { dont_link_with, extension:native, file:lambda_compiler.native, link, native, ocaml, package(core), program, quiet, thread }
+ocamlfind ocamlopt -linkpkg -thread -package core lambda_type.cmx lib.cmx simplification.cmx parser.cmx lexer.cmx lambda_compiler.cmx -o lambda_compiler.native
+# Compilation successful.

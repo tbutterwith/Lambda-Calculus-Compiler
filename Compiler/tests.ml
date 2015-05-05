@@ -1,7 +1,8 @@
 open Core.Std
 open Lexer
 open Printf
-open Lambda
+open Lambda_type
+open Simplification
 
 type test =
 { 	name 	: string ;
