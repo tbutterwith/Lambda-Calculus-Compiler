@@ -1,2 +1,0 @@
-to compile arithmetic compiler ->
-ocamlbuild -tag thread -use-ocamlfind -pkg core *main file name*.native
